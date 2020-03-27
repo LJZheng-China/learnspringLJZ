@@ -1,8 +1,10 @@
 package org.csu.mypetstoressm.service;
 
 import org.csu.mypetstoressm.domain.Category;
+import org.csu.mypetstoressm.domain.Item;
 import org.csu.mypetstoressm.domain.Product;
 import org.csu.mypetstoressm.persistence.CategoryMapper;
+import org.csu.mypetstoressm.persistence.ItemMapper;
 import org.csu.mypetstoressm.persistence.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class CatalogService {
     private CategoryMapper categoryMapper;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private ItemMapper itemMapper;
 
     public List<Category> getCategoryList() {
         return categoryMapper.getCategoryList();
@@ -35,5 +39,17 @@ public class CatalogService {
 
     public List<Product> searchProductList(String keyword) {
         return productMapper.searchProductList("%" + keyword.toLowerCase() + "%");
+    }
+
+    public List<Item> getItemListByProduct(String productId) {
+        return itemMapper.getItemListByProduct(productId);
+    }
+
+    public Item getItem(String itemId) {
+        return itemMapper.getItem(itemId);
+    }
+
+    public boolean isItemInStock(String itemId) {
+        return itemMapper.getInventoryQuantity(itemId) > 0;
     }
 }
