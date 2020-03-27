@@ -29,6 +29,12 @@ class MypetstoressmApplicationTests {
 
         System.out.println("searchProductList: " + catalogService.searchProductList("e"));
 
+        System.out.println("getItemListByProduct: " + catalogService.getItemListByProduct("K9-BD-01"));
+
+        System.out.println("getItem: " + catalogService.getItem("EST-6"));
+
+        System.out.println("isItemInStock: " + catalogService.isItemInStock("EST-6"));
+
     }
 
 

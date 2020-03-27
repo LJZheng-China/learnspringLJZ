@@ -126,6 +126,17 @@ public class Item {
         return "Item{" +
                 "itemId='" + itemId + '\'' +
                 ", productId='" + productId + '\'' +
+                ", listPrice=" + listPrice +
+                ", unitCost=" + unitCost +
+                ", supplierId=" + supplierId +
+                ", status='" + status + '\'' +
+                ", attribute1='" + attribute1 + '\'' +
+                ", attribute2='" + attribute2 + '\'' +
+                ", attribute3='" + attribute3 + '\'' +
+                ", attribute4='" + attribute4 + '\'' +
+                ", attribute5='" + attribute5 + '\'' +
+                ", product=" + product +
+                ", quantity=" + quantity +
                 '}';
     }
 }

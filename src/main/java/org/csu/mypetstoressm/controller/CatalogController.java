@@ -25,7 +25,7 @@ public class CatalogController {
     @Autowired
     private CatalogService catalogService;
 
-    @GetMapping("/viewMain")
+    @GetMapping("/main")
     public String viewMain(){
         return MAIN;
     }
@@ -43,11 +43,26 @@ public class CatalogController {
         }
     }
 
+    @GetMapping("/viewProduct")
     public String viewProduct(String productId, Model model) {
         if (productId != null) {
             List<Item> itemList = catalogService.getItemListByProduct(productId);
             Product product = catalogService.getProduct(productId);
+            model.addAttribute("itemList", itemList);
+            model.addAttribute("product", product);
+            return VIEW_PRODUCT;
+        } else {
+            return MAIN;
         }
-        return VIEW_PRODUCT;
     }
+
+    @GetMapping("/viewItem")
+    public String viewItem(String itemId, Model model) {
+        Item item = catalogService.getItem(itemId);
+        Product product = item.getProduct();
+        model.addAttribute("item", item);
+        model.addAttribute("product", product);
+        return VIEW_ITEM;
+    }
+
 }

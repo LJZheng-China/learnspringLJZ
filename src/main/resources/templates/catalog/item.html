@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/mypetstoressm.css" type="text/css" media="screen"/>
+</head>
+<body>
+<div th:replace="common/top">
+
+</div>
+<div id="Content">
+    <div id="BackLink">
+        <a th:href="@{'/catalog/viewProduct?productId=' + ${product.productId}}" th:text="|Return to ${product.name}|">Return to ${sessionScope.product.productId}</a>
+    </div>
+
+    <div id="Catalog">
+
+        <table>
+            <tr>
+                <td th:text="${product.description}">${sessionScope.product.description}</td>
+            </tr>
+            <tr>
+                <td><b th:text="${item.itemId}"> ${sessionScope.item.itemId} </b></td>
+            </tr>
+            <tr>
+                <td><b th:text="${item.attribute1 + item.attribute2 + item.attribute3 + item.attribute4 + item.attribute5 + product.name}"><font size="4"> ${sessionScope.item.attribute1}
+                    ${sessionScope.item.attribute2} ${sessionScope.item.attribute3}
+                    ${sessionScope.item.attribute4} ${sessionScope.item.attribute5}
+                    ${sessionScope.product.name} </font></b></td>
+            </tr>
+            <tr>
+                <td th:text="${product.name}">${sessionScope.product.name}</td>
+            </tr>
+            <tr>
+                <td th:if="${item.quantity} <= 0">
+                    Back ordered.
+                </td>
+                <td th:if="${item.quantity} > 0" th:text="|${item.quantity} in stock.|"></td>
+
+<!--                <td><c:if test="${sessionScope.item.quantity <= 0}">-->
+<!--                    Back ordered.-->
+<!--                </c:if> <c:if test="${sessionScope.item.quantity > 0}">-->
+<!--                    ${sessionScope.item.quantity} in stock.-->
+<!--                </c:if></td>-->
+            </tr>
+            <tr>
+                <td th:text="'$' + ${#numbers.formatDecimal(item.listPrice, 0, 2)}">
+<!--                    <fmt:formatNumber value="${sessionScope.item.listPrice}" pattern="$#,##0.00" />-->
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <a href="addItemToCart?workingItemId=${sessionScope.item.itemId}" class="Button">Add to Cart</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+<div th:replace="common/bottom">
+
+</div>
+</body>
+</html>
