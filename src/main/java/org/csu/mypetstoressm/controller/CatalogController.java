@@ -65,4 +65,17 @@ public class CatalogController {
         return VIEW_ITEM;
     }
 
+    @GetMapping("/searchProducts")
+    public String searchProducts(String keyword, Model model) {
+        if (keyword == null || keyword.length() < 1) {
+//            setMessage("Please enter a keyword to search for, then press the search button.");
+//            return ERROR;
+            return MAIN;
+        } else {
+            List<Product> productList = catalogService.searchProductList(keyword.toLowerCase());
+            model.addAttribute("productList", productList);
+            return SEARCH_PRODUCTS;
+        }
+    }
+
 }
