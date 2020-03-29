@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -26,13 +28,13 @@ public class CatalogController {
     private CatalogService catalogService;
 
     @GetMapping("/main")
-    public String viewMain(){
+    public String viewMain() {
         return MAIN;
     }
 
     @GetMapping("/viewCategory")
     public String viewCategory(String categoryId, Model model) {
-        if(categoryId != null) {
+        if (categoryId != null) {
             Category category = catalogService.getCategory(categoryId);
             List<Product> productList = catalogService.getProductListByCategory(categoryId);
             model.addAttribute("category", category);
@@ -65,9 +67,10 @@ public class CatalogController {
         return VIEW_ITEM;
     }
 
-    @GetMapping("/searchProducts")
+    @PostMapping("/searchProducts")
     public String searchProducts(String keyword, Model model) {
         if (keyword == null || keyword.length() < 1) {
+            model.addAttribute("searchProductsMessage", "Please enter a keyword to search for, then press the search button.");
 //            setMessage("Please enter a keyword to search for, then press the search button.");
 //            return ERROR;
             return MAIN;
