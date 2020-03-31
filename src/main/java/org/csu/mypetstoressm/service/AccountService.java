@@ -1,7 +1,6 @@
 package org.csu.mypetstoressm.service;
 
-import org.csu.mypetstore.domain.Account;
-import org.csu.mypetstore.persistence1.AccountMapper;
+import org.csu.mypetstoressm.domain.Account;
 import org.csu.mypetstoressm.persistence.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

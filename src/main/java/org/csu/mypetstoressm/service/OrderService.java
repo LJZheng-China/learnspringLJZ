@@ -1,29 +1,30 @@
 package org.csu.mypetstoressm.service;
 
+import org.csu.mypetstoressm.domain.Item;
+import org.csu.mypetstoressm.domain.LineItem;
+import org.csu.mypetstoressm.domain.Order;
+import org.csu.mypetstoressm.domain.Sequence;
+import org.csu.mypetstoressm.persistence.ItemMapper;
+import org.csu.mypetstoressm.persistence.LineItemMapper;
+import org.csu.mypetstoressm.persistence.OrderMapper;
+import org.csu.mypetstoressm.persistence.SequenceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.csu.mypetstore.domain.Item;
-import org.csu.mypetstore.domain.LineItem;
-import org.csu.mypetstore.domain.Order;
-import org.csu.mypetstore.domain.Sequence;
-import org.csu.mypetstore.persistence.ItemMapper;
-import org.csu.mypetstore.persistence.LineItemMapper;
-import org.csu.mypetstore.persistence.OrderMapper;
-import org.csu.mypetstore.persistence.SequenceMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.HashMap;
-import java.util.Map;
-@Service
+
 public class OrderService {
     @Autowired
+    private ItemMapper itemMapper;
+    @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private SequenceMapper sequenceMapper;
+    @Autowired
+    private LineItemMapper lineItemMapper;
+
     /*
     声明式事务处理
      */
@@ -84,6 +85,4 @@ public class OrderService {
             return sequence.getNextId();
         }
     }
-}
-
 }
