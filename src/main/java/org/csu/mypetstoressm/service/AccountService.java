@@ -1,4 +1,4 @@
-package org.csu.mypetstore.service;
+package org.csu.mypetstoressm.service;
 
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.persistence1.AccountMapper;

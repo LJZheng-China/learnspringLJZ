@@ -1,4 +1,4 @@
-package org.csu.mypetstore.service;
+package org.csu.mypetstoressm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
