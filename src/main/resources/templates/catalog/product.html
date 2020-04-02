@@ -41,7 +41,7 @@
 <!--                        <fmt:formatNumber value="${item.listPrice}" pattern="$#,##0.00" />-->
                     </td>
                     <td>
-                        <a class="Button" th:href="@{'addItemToCart?workingItemId=' + ${item.itemId}}" th:text="'Add to Cart 还没完全做'">Add to Cart</a>
+                        <a class="Button" th:href="@{'/cart/addItemToCart?workingItemId=' + ${item.itemId}}" th:text="'Add to Cart'">Add to Cart</a>
                     </td>
                 </tr>
             <tr>

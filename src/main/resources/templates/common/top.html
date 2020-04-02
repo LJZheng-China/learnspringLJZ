@@ -11,19 +11,20 @@
 
         <div id="Logo">
             <div id="LogoContent">
-                <a href="main"><img src="../images/logo-topbar.gif"/></a>
+                <a href="/catalog/main"><img src="../images/logo-topbar.gif"/></a>
             </div>
         </div>
 
         <div id="Menu">
             <div id="MenuContent">
-                <a href="viewCart"><img align="middle" name="img_cart" src="../images/cart.gif"/></a>
-                <img align="middle" src="../images/separator.gif"/>
-                <a href="signOnForm">Sign In</a>
-                <a href="signOff">Sign Out</a>
-                <img align="middle" src="../images/separator.gif"/>
-                <a href="editAccountForm">My Account</a>
-                <img align="middle" src="../images/separator.gif"/>
+                <a href="/cart/viewCart"><img align="middle" name="img_cart" src="../images/cart.gif" /></a>
+                <img align="middle" src="../images/separator.gif" />
+                <a th:if="${session.account} == null" href="/account/signonForm">Sign In</a>
+                <a th:if="(${session.account} != null) and (${!session.authenticated}) " href="/account/signonForm">Sign In</a>
+                <a th:if="(${session.account} != null) and (${session.authenticated})" href="/account/signoff">Sign Out</a>
+                <img th:if="(${session.account} != null) and (${session.authenticated})" align="middle" src="../images/separator.gif" />
+                <a th:if="(${session.account} != null) and (${session.authenticated})" href="/account/editAccountForm">My Account</a>
+                <img align="middle" src="../images/separator.gif" />
                 <a href="../help.html">?</a>
             </div>
         </div>
@@ -43,15 +44,15 @@
         </div>
 
         <div id="QuickLinks">
-            <a href="viewCategory?categoryId=FISH"><img src="../images/sm_fish.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=FISH"><img src="../images/sm_fish.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=DOGS"><img src="../images/sm_dogs.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=DOGS"><img src="../images/sm_dogs.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=REPTILES"><img src="../images/sm_reptiles.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=REPTILES"><img src="../images/sm_reptiles.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=CATS"><img src="../images/sm_cats.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=CATS"><img src="../images/sm_cats.gif"/></a>
             <img src="../images/separator.gif"/>
-            <a href="viewCategory?categoryId=BIRDS"><img src="../images/sm_birds.gif"/></a>
+            <a href="/catalog/viewCategory?categoryId=BIRDS"><img src="../images/sm_birds.gif"/></a>
         </div>
 
     </div>

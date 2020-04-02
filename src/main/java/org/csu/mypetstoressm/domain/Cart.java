@@ -1,8 +1,11 @@
 package org.csu.mypetstoressm.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.*;
 
+@Component("cart")
 public class Cart {
     private final Map<String, CartItem> itemMap = Collections.synchronizedMap(new HashMap<String, CartItem>());
     private final List<CartItem> itemList = new ArrayList<CartItem>();
