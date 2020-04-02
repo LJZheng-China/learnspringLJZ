@@ -9,12 +9,14 @@ import org.csu.mypetstoressm.persistence.LineItemMapper;
 import org.csu.mypetstoressm.persistence.OrderMapper;
 import org.csu.mypetstoressm.persistence.SequenceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class OrderService {
     @Autowired
     private ItemMapper itemMapper;

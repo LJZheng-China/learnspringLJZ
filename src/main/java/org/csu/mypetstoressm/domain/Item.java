@@ -66,7 +66,7 @@ public class Item {
     }
 
     public String getAttribute1() {
-        return attribute1;
+        return (attribute1 == null) ? "" : attribute1;
     }
 
     public void setAttribute1(String attribute1) {
@@ -74,7 +74,7 @@ public class Item {
     }
 
     public String getAttribute2() {
-        return attribute2;
+        return (attribute2 == null) ? "" : attribute2;
     }
 
     public void setAttribute2(String attribute2) {
@@ -82,7 +82,7 @@ public class Item {
     }
 
     public String getAttribute3() {
-        return attribute3;
+        return (attribute3 == null) ? "" : attribute3;
     }
 
     public void setAttribute3(String attribute3) {
@@ -90,7 +90,7 @@ public class Item {
     }
 
     public String getAttribute4() {
-        return attribute4;
+        return (attribute4 == null) ? "" : attribute4;
     }
 
     public void setAttribute4(String attribute4) {
@@ -98,7 +98,7 @@ public class Item {
     }
 
     public String getAttribute5() {
-        return attribute5;
+        return (attribute5 == null) ? "" : attribute5;
     }
 
     public void setAttribute5(String attribute5) {
