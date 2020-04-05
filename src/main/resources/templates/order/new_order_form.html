@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="common/top"></header>
+<div id="Content">
+    <div id="Catalog">
+<!--        <%&#45;&#45;	<stripes:form&#45;&#45;%>-->
+<!--        <%&#45;&#45;	beanclass="org.mybatis.jpetstore.web.actions.OrderActionBean">&#45;&#45;%>-->
+        <form action="newOrder" method="post">
+
+            <table>
+                <tr>
+                    <th colspan=2>Payment Details</th>
+                </tr>
+                <tr>
+                    <td>Card Type:</td>
+                    <td th:text="">
+                        <stripes:select name="order.cardType">
+                            <stripes:options-collection
+                                    collection="${sessionScope.creditCardTypes}" />
+                        </stripes:select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Card Number:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text name="order.creditCard" /> * Use a fake&#45;&#45;%>-->
+<!--                        <%&#45;&#45;			number!&#45;&#45;%>-->
+                        <input type="text" name="${order.creditCard}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Expiry Date (MM/YYYY):</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text name="order.expiryDate" />&#45;&#45;%>-->
+                        <input type="text" name="${order.expiryDate}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan=2>Billing Address</th>
+                </tr>
+
+                <tr>
+                    <td>First name:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text name="order.billToFirstName" />&#45;&#45;%>-->
+                        <input type="text" name="${order.billToFirstName}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text name="order.billToLastName" />&#45;&#45;%>-->
+                        <input type="text" name="${order.billToLastName}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address 1:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text size="40" name="order.billAddress1" />&#45;&#45;%>-->
+                        <input type="text" size="40" name="${order.billAddress1}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address 2:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text size="40" name="order.billAddress2" />&#45;&#45;%>-->
+                        <input type="text" size="40" name="${order.billAddress2}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text name="order.billCity" />&#45;&#45;%>-->
+                        <input type="text" name="${order.billCity}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text size="4" name="order.billState" />&#45;&#45;%>-->
+                        <input type="text" size="4" name="${order.billState}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Zip:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text size="10" name="order.billZip" />&#45;&#45;%>-->
+                        <input type="text" size="10" name="${order.billZip}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td>
+<!--                        <%&#45;&#45;				<stripes:text size="15" name="order.billCountry" />&#45;&#45;%>-->
+                        <input type="text" size="15" name="${order.billCountry}"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan=2>
+<!--                        <%&#45;&#45;				<stripes:checkbox name="shippingAddressRequired" />&#45;&#45;%>-->
+<!--                        <%&#45;&#45;			Ship to different address...&#45;&#45;%>-->
+                        <input type="checkbox" name="shippingAddressRequired"/>Ship to different address...
+                    </td>
+                </tr>
+
+            </table>
+
+<!--            <%&#45;&#45;	<stripes:submit name="newOrder" value="Continue" />&#45;&#45;%>-->
+            <input type="submit" name="newOrder" value="Continue">
+
+        </form>
+    </div>
+<!--    <%&#45;&#45;</stripes:form>&#45;&#45;%> -->
+</div>
+<footer th:replace="common/bottom"></footer>
+</body>
+</html>

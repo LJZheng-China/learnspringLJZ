@@ -74,4 +74,9 @@ public class CartController {
         model.addAttribute("cart",cart);
         return "cart/cart";
     }
+
+    public String checkOut(Model model) {
+        model.addAttribute("cart",cart);
+        return "cart/checkout";
+    }
 }

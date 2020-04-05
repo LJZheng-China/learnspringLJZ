@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="StyleSheet" href="../css/mypetstoressm.css" type="text/css" media="screen"/>
 </head>
 <body>
+<header th:replace="common/top"></header>
+<div id="Content">
 
+    <div id="BackLink">
+        <!--            <stripes:link-->
+        <!--                beanclass="org.mybatis.jpetstore.web.actions.CartActionBean">-->
+        <!--            Return to Shopping Cart</stripes:link>-->
+        <a href="#">Return to Shopping Cart</a>
+    </div>
+
+    <div id="Catalog">
+
+        <table>
+            <tr>
+                <td>
+                    <h2>Checkout Summary</h2>
+
+                    <table>
+
+                        <tr>
+                            <td><b>Item ID</b></td>
+                            <td><b>Product ID</b></td>
+                            <td><b>Description</b></td>
+                            <td><b>In Stock?</b></td>
+                            <td><b>Quantity</b></td>
+                            <td><b>List Price</b></td>
+                            <td><b>Total Cost</b></td>
+                        </tr>
+
+                        <!--                            <c:forEach var="cartItem" items="${actionBean.cart.cartItems}">-->
+                        <tr th:each="cartItem:${cart.cartItems}">
+                            <td>
+                                <!--                                        <stripes:link-->
+                                <!--                                            beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"-->
+                                <!--                                            event="viewItem">-->
+                                <!--                                        <stripes:param name="itemId" value="${cartItem.item.itemId}" />-->
+                                <!--                                        ${cartItem.item.itemId}-->
+                                <!--                                    </stripes:link>-->
+                                <a th:href="'/catalog/viewItem'" th:text="${cartItem.item.itemId}"></a>
+                            </td>
+                            <td th:text="${cartItem.item.product.productId}">${cartItem.item.product.productId}</td>
+                            <td th:text="${item.attribute1} + ${item.attribute2} + ${item.attribute3} + ${item.attribute4} + ${item.attribute5} + ${product.name}">${cartItem.item.attribute1} ${cartItem.item.attribute2}
+                                ${cartItem.item.attribute3} ${cartItem.item.attribute4}
+                                ${cartItem.item.attribute5} ${cartItem.item.product.name}
+                            </td>
+                            <td th:text=${cartItem.inStock}">${cartItem.inStock}</td>
+                            <td th:text="${cartItem.quantity}">${cartItem.quantity}</td>
+                            <td th:text="'$' + ${#numbers.formatDecimal(cartItem.item.listPrice, 0, 2)}">
+<!--                                <fmt:formatNumber value="${cartItem.item.listPrice}" pattern="$#,##0.00"/>-->
+                            </td>
+                            <td th:text="'$' + ${#numbers.formatDecimal(cartItem.total, 0, 2)}">
+<!--                                <fmt:formatNumber value="${cartItem.total}" pattern="$#,##0.00"/>-->
+                            </td>
+                        </tr>
+                        <!--                            </c:forEach>-->
+                        <tr>
+                            <td colspan="7" th:text="'Sub Total:$' + ${#numbers.formatDecimal(cart.subTotal, 0, 2)}">Sub Total:
+<!--                                <fmt:formatNumber value="${actionBean.cart.subTotal}" pattern="$#,##0.00"/>-->
+                            </td>
+                        </tr>
+                    </table>
+
+                <td>&nbsp;</td>
+
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+<footer th:replace="common/bottom"></footer>
 </body>
 </html>
