@@ -115,4 +115,27 @@ public class AccountController {
         model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
         return "account/new_account";
     }
+
+    @PostMapping("newAccount")
+    public String newAccount(@ModelAttribute(value = "newAccount") Account account, Model model){
+//        String text = (String) model.getAttribute("text");
+//        System.out.println(text+"    "+image);
+
+//        if (text==null || !text.equalsIgnoreCase(image)) {//equalsIgnoreCase意思是不考虑大小写
+//            model.addAttribute("imageMess", "验证码输入错误!");
+//            return "account/NewAccountForm";
+//        }
+
+        if(account.getUsername()==null||account.getUsername().trim().length()==0||
+                account.getPassword()==null||account.getPassword().trim().length()==0){
+            String msg = "用户名或密码不能为空";
+            model.addAttribute("msg",msg);
+            return "account/new_account";
+        }
+        else {
+            accountService.insertAccount(account);
+//            model.addAttribute("account", account);
+            return "catalog/main";
+        }
+    }
 }

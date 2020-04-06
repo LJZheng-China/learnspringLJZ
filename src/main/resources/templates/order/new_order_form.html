@@ -10,7 +10,7 @@
     <div id="Catalog">
 <!--        <%&#45;&#45;	<stripes:form&#45;&#45;%>-->
 <!--        <%&#45;&#45;	beanclass="org.mybatis.jpetstore.web.actions.OrderActionBean">&#45;&#45;%>-->
-        <form action="newOrder" method="post">
+        <form th:action="@{/order/newOrder}" method="post" th:object="${order}">
 
             <table>
                 <tr>
@@ -18,12 +18,16 @@
                 </tr>
                 <tr>
                     <td>Card Type:</td>
-                    <td th:text="">
-                        <stripes:select name="order.cardType">
-                            <stripes:options-collection
-                                    collection="${sessionScope.creditCardTypes}" />
-                        </stripes:select>
-
+                    <td>
+<!--                        <stripes:select name="order.cardType">-->
+<!--                            <stripes:options-collection-->
+<!--                                    collection="${sessionScope.creditCardTypes}" />-->
+<!--                        </stripes:select>-->
+                        <select>
+                            <option value="Visa" selected="selected">Visa</option>
+                            <option value="MasterCard">MasterCard</option>
+                            <option value="American Express">American Express</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -31,14 +35,14 @@
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text name="order.creditCard" /> * Use a fake&#45;&#45;%>-->
 <!--                        <%&#45;&#45;			number!&#45;&#45;%>-->
-                        <input type="text" name="${order.creditCard}"/>
+                        <input type="text" name="creditCard" value="999999999999"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Expiry Date (MM/YYYY):</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text name="order.expiryDate" />&#45;&#45;%>-->
-                        <input type="text" name="${order.expiryDate}"/>
+                        <input type="text" name="expiryDate" value="12/03"/>
                     </td>
                 </tr>
                 <tr>
@@ -49,56 +53,56 @@
                     <td>First name:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text name="order.billToFirstName" />&#45;&#45;%>-->
-                        <input type="text" name="${order.billToFirstName}"/>
+                        <input type="text" name="billToFirstName" th:value="*{billToFirstName}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Last name:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text name="order.billToLastName" />&#45;&#45;%>-->
-                        <input type="text" name="${order.billToLastName}"/>
+                        <input type="text" name="billToLastName" th:value="*{billToLastName}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Address 1:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text size="40" name="order.billAddress1" />&#45;&#45;%>-->
-                        <input type="text" size="40" name="${order.billAddress1}"/>
+                        <input type="text" size="40" name="billAddress1" th:value="*{billAddress1}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Address 2:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text size="40" name="order.billAddress2" />&#45;&#45;%>-->
-                        <input type="text" size="40" name="${order.billAddress2}"/>
+                        <input type="text" size="40" name="billAddress2" th:value="*{billAddress2}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>City:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text name="order.billCity" />&#45;&#45;%>-->
-                        <input type="text" name="${order.billCity}"/>
+                        <input type="text" name="billCity" th:value="*{billCity}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>State:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text size="4" name="order.billState" />&#45;&#45;%>-->
-                        <input type="text" size="4" name="${order.billState}"/>
+                        <input type="text" size="4" name="billState" th:value="*{billState}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Zip:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text size="10" name="order.billZip" />&#45;&#45;%>-->
-                        <input type="text" size="10" name="${order.billZip}"/>
+                        <input type="text" size="10" name="billZip" th:value="*{billZip}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Country:</td>
                     <td>
 <!--                        <%&#45;&#45;				<stripes:text size="15" name="order.billCountry" />&#45;&#45;%>-->
-                        <input type="text" size="15" name="${order.billCountry}"/>
+                        <input type="text" size="15" name="billCountry" th:value="*{billCountry}"/>
                     </td>
                 </tr>
 

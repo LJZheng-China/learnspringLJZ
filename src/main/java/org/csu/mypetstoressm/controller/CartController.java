@@ -10,13 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 
 @Controller
-@SessionScope
+@SessionAttributes({"cart","account"})
 @RequestMapping("/cart")
 public class CartController {
     @Autowired

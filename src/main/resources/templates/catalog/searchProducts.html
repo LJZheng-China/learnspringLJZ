@@ -25,7 +25,7 @@
 <!--            <c:forEach var="product" items="${sessionScope.productList}">-->
                 <tr th:each="product:${productList}">
                     <td>
-                        <a th:href="@{'/catalog/viewProduct?productId=' + ${product.productId}}" th:text="${product.description}">${product.description}</a>
+                        <a th:href="@{'/catalog/viewProduct?productId=' + ${product.productId}}" th:utext="${product.description}">${product.description}</a>
                     </td>
                     <td>
                         <b>
