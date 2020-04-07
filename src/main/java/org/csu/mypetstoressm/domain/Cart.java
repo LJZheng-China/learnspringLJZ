@@ -75,4 +75,12 @@ public class Cart {
         }
         return subTotal;
     }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "itemMap=" + itemMap +
+                ", itemList=" + itemList +
+                '}';
+    }
 }

@@ -68,13 +68,14 @@ public class CartController {
                     cartItems.remove();
                 }
             }catch (Exception e){
-
+                e.printStackTrace();
             }
         }
         model.addAttribute("cart",cart);
         return "cart/cart";
     }
 
+    @GetMapping("/checkOut")
     public String checkOut(Model model) {
         model.addAttribute("cart",cart);
         return "cart/checkout";

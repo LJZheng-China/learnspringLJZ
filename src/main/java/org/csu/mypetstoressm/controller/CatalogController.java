@@ -7,10 +7,7 @@ import org.csu.mypetstoressm.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class CatalogController {
     private static final String VIEW_PRODUCT = "catalog/product";
     private static final String VIEW_ITEM = "catalog/item";
     private static final String SEARCH_PRODUCTS = "catalog/searchProducts";
+    private static final String ERROR = "common/error";
 
     @Autowired
     private CatalogService catalogService;
@@ -71,9 +69,8 @@ public class CatalogController {
     public String searchProducts(String keyword, Model model) {
         if (keyword == null || keyword.length() < 1) {
             model.addAttribute("searchProductsMessage", "Please enter a keyword to search for, then press the search button.");
-//            setMessage("Please enter a keyword to search for, then press the search button.");
-//            return ERROR;
-            return MAIN;
+            model.addAttribute("message", "Please enter a keyword to search for, then press the search button.");
+            return ERROR;
         } else {
             List<Product> productList = catalogService.searchProductList(keyword.toLowerCase());
             model.addAttribute("productList", productList);

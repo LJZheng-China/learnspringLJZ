@@ -28,12 +28,12 @@ public class AccountController {
     private static final List<String> CATEGORY_LIST;
 
     static {
-        List<String> langList = new ArrayList<String>();
+        List<String> langList = new ArrayList<>();
         langList.add("ENGLISH");
         langList.add("CHINESE");
         LANGUAGE_LIST = Collections.unmodifiableList(langList);
 
-        List<String> catList = new ArrayList<String>();
+        List<String> catList = new ArrayList<>();
         catList.add("FISH");
         catList.add("DOGS");
         catList.add("REPTILES");
@@ -118,14 +118,6 @@ public class AccountController {
 
     @PostMapping("newAccount")
     public String newAccount(@ModelAttribute(value = "newAccount") Account account, Model model){
-//        String text = (String) model.getAttribute("text");
-//        System.out.println(text+"    "+image);
-
-//        if (text==null || !text.equalsIgnoreCase(image)) {//equalsIgnoreCase意思是不考虑大小写
-//            model.addAttribute("imageMess", "验证码输入错误!");
-//            return "account/NewAccountForm";
-//        }
-
         if(account.getUsername()==null||account.getUsername().trim().length()==0||
                 account.getPassword()==null||account.getPassword().trim().length()==0){
             String msg = "用户名或密码不能为空";
