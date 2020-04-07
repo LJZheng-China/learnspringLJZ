@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,22 +60,20 @@ public class AccountController {
         } else {
             account.setPassword(null);
             List<Product> myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
-            boolean authenticated = true;
             model.addAttribute("account", account);
             model.addAttribute("myList", myList);
-            model.addAttribute("authenticated", authenticated);
+            model.addAttribute("authenticated", true);
             return "catalog/main";
         }
     }
 
     @GetMapping("signoff")
-    public String signoff(Model model) {
-        Account loginAccount = new Account();
-        List<Product> myList = null;
-        boolean authenticated = false;
-        model.addAttribute("account", loginAccount);
-        model.addAttribute("myList", myList);
-        model.addAttribute("authenticated", authenticated);
+    public String signoff(Model model, HttpSession session) {
+        model.addAttribute("account", null);
+        model.addAttribute("myList", null);
+        model.addAttribute("authenticated", false);
+        session.setAttribute("account", null);
+        System.out.println("signoff"+ session.getAttribute("account"));
         return "catalog/main";
     }
 

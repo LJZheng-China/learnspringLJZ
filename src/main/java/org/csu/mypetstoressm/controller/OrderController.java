@@ -5,6 +5,7 @@ import org.csu.mypetstoressm.domain.Cart;
 import org.csu.mypetstoressm.domain.Order;
 import org.csu.mypetstoressm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionScope
 @SessionAttributes({"cart", "order", "account"})
 @RequestMapping("/order")
 public class OrderController {
@@ -43,8 +43,10 @@ public class OrderController {
 
     @GetMapping("/newOrderForm")
     public String newOrderForm(Model model, HttpSession session) {
-        Account account = (Account)session.getAttribute("account");
+        Account account = (Account) session.getAttribute("account");
         Cart cart = (Cart)model.getAttribute("cart");
+
+        System.out.println("/newOrderForm" + account);
 
         if (account == null) {
             model.addAttribute("message", "You must sign on before attempting to check out.  Please sign on and try checking out again.");
@@ -76,20 +78,45 @@ public class OrderController {
     }
 
     @GetMapping("/viewOrder")
-    public String viewOrder(Model model) {
+    public String viewOrder(Model model, HttpSession session) {
         model.addAttribute("lineItem", order.getLineItems());
+
         String msg;
 
         if (order != null) {
             orderService.insertOrder(order);
-            model.addAttribute("cart",null);
-            msg = "Thank you, your order has been submitted.";
-            model.addAttribute("message",msg);
+            Cart cart = new Cart();
+            model.addAttribute("cart",cart);
+            session.setAttribute("cart", cart);
+            model.addAttribute("message", "Thank you, your order has been submitted.");
             return VIEW_ORDER;
-        } else {
+        }  else {
             msg = "An error occurred processing your order (order was null).";
             model.addAttribute("message",msg);
             return ERROR;
         }
     }
+
+    @GetMapping("/myOrder")
+    public String myOrder(@RequestParam(value = "orderId") int orderId, Model model, HttpSession session) {
+
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) {
+            model.addAttribute("message", "please login first!");
+            return "account/signon";
+        } else {
+            order = orderService.getOrder(orderId);
+            if (order != null) {
+                model.addAttribute("order", order);
+                model.addAttribute("message", "");
+                return VIEW_ORDER;
+            }  else {
+                model.addAttribute("message", "An error occurred processing your order (order was null).");
+                return ERROR;
+            }
+        }
+    }
+
+
+
 }

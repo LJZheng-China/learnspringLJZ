@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 
 @Controller
-@SessionAttributes({"cart","account"})
+@SessionAttributes({"cart", "account"})
 @RequestMapping("/cart")
 public class CartController {
     @Autowired
@@ -26,7 +26,11 @@ public class CartController {
 
     @GetMapping("/viewCart")
     public String viewCart(Model model){
-        model.addAttribute("cart",cart);
+        if(model.getAttribute("cart") == null) {
+            model.addAttribute("cart",cart);
+        }
+        System.out.println("viewCart: "+model.getAttribute("cart"));
+        System.out.println("viewCart: "+model.getAttribute("account"));
         return "cart/cart";
     }
 
@@ -47,8 +51,9 @@ public class CartController {
     public String removeItemFromCart(String workingItemId, Model model){
         Item item = cart.removeItemById(workingItemId);
         model.addAttribute("cart",cart);
+        System.out.println("removeItemFromCart" + model.getAttribute("cart"));
         if(item == null){
-            model.addAttribute("msg", "Attempted to remove null CartItem from Cart.");
+            model.addAttribute("message", "Attempted to remove null CartItem from Cart.");
             return "common/error";
         }else{
             return "cart/cart";
@@ -72,6 +77,8 @@ public class CartController {
             }
         }
         model.addAttribute("cart",cart);
+
+        System.out.println("updateCartQuantities" + model.getAttribute("cart"));
         return "cart/cart";
     }
 
