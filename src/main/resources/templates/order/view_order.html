@@ -163,7 +163,7 @@
                                 <i th:if="${lineItem.item == null}">{description unavailable}</i>
                             </td>
 
-                            <td th:value="${lineItem.quantity}">quantity</td>
+                            <td th:text="${lineItem.quantity}">quantity</td>
                             <td th:text="${#numbers.formatDecimal(lineItem.unitPrice,1,2)}">
                             </td>
                             <td th:text="${#numbers.formatDecimal(lineItem.total,1,2)}">
