@@ -46,7 +46,8 @@ public class OrderController {
         Account account = (Account) session.getAttribute("account");
         Cart cart = (Cart)model.getAttribute("cart");
 
-        System.out.println("/newOrderForm" + account);
+        System.out.println("/newOrderForm account: " + account);
+        System.out.println("/newOrderForm order: " + order);
 
         if (account == null) {
             model.addAttribute("message", "You must sign on before attempting to check out.  Please sign on and try checking out again.");
@@ -80,6 +81,7 @@ public class OrderController {
     @GetMapping("/viewOrder")
     public String viewOrder(Model model, HttpSession session) {
         model.addAttribute("lineItem", order.getLineItems());
+        System.out.println("/viewOrder order: " + order);
 
         String msg;
 
