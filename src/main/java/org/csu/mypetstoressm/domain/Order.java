@@ -286,6 +286,7 @@ public class Order {
         locale = "CA";
         status = "P";
 
+        lineItems.clear();
         Iterator<CartItem> i = cart.getAllCartItems();
         while (i.hasNext()) {
             CartItem cartItem = (CartItem) i.next();
