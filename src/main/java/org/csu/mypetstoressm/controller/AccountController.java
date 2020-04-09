@@ -43,20 +43,35 @@ public class AccountController {
 
         CATEGORY_LIST = Collections.unmodifiableList(catList);
     }
+    
+    private static final String SINGON = "account/signon";
+    private static final String EDIT_ACCOUNT = "account/edit_account";
 
     @GetMapping("signonForm")
     public String signonForm() {
-        return "account/signon";
+        return SINGON;
     }
 
     @PostMapping("signon")
-    public String signon(String username, String password, Model model) {
+    public String signon(String username, String password, String verification, Model model, HttpSession session) {
+        String verifyCode = (String) session.getAttribute("verifyCode");
+
+        //equalsIgnoreCase: 不考虑大小写
+        if (verifyCode==null || !verifyCode.equalsIgnoreCase(verification)) {
+            if (verification == null || verification == "") {
+                model.addAttribute("msg", "请输入验证码!");
+            } else {
+                model.addAttribute("msg", "验证码输入错误!");
+            }
+            return SINGON;
+        }
+
         Account account = accountService.getAccount(username, password);
 
         if (account == null) {
             String msg = "Invalid username or password.  Signon failed.";
             model.addAttribute("msg", msg);
-            return "account/signon";
+            return SINGON;
         } else {
             account.setPassword(null);
             List<Product> myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
@@ -82,7 +97,7 @@ public class AccountController {
         model.addAttribute("account", account);
         model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
         model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
-        return "account/edit_account";
+        return EDIT_ACCOUNT;
     }
 
     @PostMapping("editAccount")
@@ -90,11 +105,11 @@ public class AccountController {
         if (account.getPassword() == null || account.getPassword().length() == 0 || repeatedPassword == null || repeatedPassword.length() == 0) {
             String msg = "密码不能为空";
             model.addAttribute("msg", msg);
-            return "account/edit_account";
+            return EDIT_ACCOUNT;
         } else if (!account.getPassword().equals(repeatedPassword)) {
             String msg = "两次密码不一致";
             model.addAttribute("msg", msg);
-            return "account/edit_account";
+            return EDIT_ACCOUNT;
         } else {
             accountService.updateAccount(account);
             account = accountService.getAccount(account.getUsername());

@@ -11,12 +11,37 @@
     <div id="Catalog">
         <form action="/account/signon" method="post">
             <p>Please enter your username and password.</p>
-            <p>
-                Username:<input type="text" name="username"><br/>
-                Password:<input type="password" name="password">
-            </p>
+            <table>
+                <tr>
+                    <td>Username:</td>
+                    <td><input type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td>Verification code:</td>
+                    <td><input type="text" name="verification" autocomplete="off" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img id="imgVerifyCode" src="/util/verifyCode" alt="Verification code" onclick="changeCode()">
+                        <script type="text/javascript">
+                            /**
+                             * 刷新验证码
+                             */
+                            function changeCode(){
+                                var time = new Date().getTime();
+                                document.getElementById("imgVerifyCode").src="/util/verifyCode?t=" + time;
+                            }
+                        </script>
+                    </td>
+                    <td><input type="submit" value="Login"></td>
+                </tr>
+            </table>
+            <br>
             <p th:if="${msg!=null}" th:text="${msg}"></p>
-            <input type="submit" value="Login">
         </form>
 
         Need a user name and password?
