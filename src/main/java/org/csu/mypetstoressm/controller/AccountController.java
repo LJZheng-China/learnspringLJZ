@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/account/")
-@SessionAttributes({"account", "myList", "authenticated"})
+@SessionAttributes({"account", "myList", "authenticated", "cart"})
 public class AccountController {
 
     @Autowired
@@ -88,6 +88,7 @@ public class AccountController {
         model.addAttribute("myList", null);
         model.addAttribute("authenticated", false);
         session.setAttribute("account", null);
+        session.setAttribute("cart", null);
         System.out.println("signoff"+ session.getAttribute("account"));
         return "catalog/main";
     }

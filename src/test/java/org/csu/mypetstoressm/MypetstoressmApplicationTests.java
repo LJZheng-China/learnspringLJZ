@@ -1,5 +1,9 @@
 package org.csu.mypetstoressm;
 
+import org.csu.mypetstoressm.domain.Account;
+import org.csu.mypetstoressm.domain.Cart;
+import org.csu.mypetstoressm.domain.Item;
+import org.csu.mypetstoressm.service.CartService;
 import org.csu.mypetstoressm.service.CatalogService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -12,6 +16,10 @@ class MypetstoressmApplicationTests {
 
     @Autowired
     CatalogService catalogService;
+
+    @Autowired
+    CartService cartService;
+
 
     @Test
     void contextLoads() {
@@ -36,6 +44,27 @@ class MypetstoressmApplicationTests {
         System.out.println("isItemInStock: " + catalogService.isItemInStock("EST-6"));
 
     }
+
+    @Test
+    void testGCart() {
+        Account account = new Account();
+        account.setUsername("kk");
+        Cart cart = cartService.getCart(account);
+        System.out.println(cart);
+
+        Item item = catalogService.getItem("EST-20");
+
+        cart.addItem(item, true);
+        cart.setQuantityByItemId("EST-20", 3);
+
+        item = catalogService.getItem("EST-21");
+        cart.addItem(item, true);
+        cart.setQuantityByItemId("EST-21", 2);
+
+        cartService.setCart(account, cart);
+    }
+
+
 
 
 }
