@@ -3,6 +3,7 @@ package org.csu.mypetstoressm.controller;
 import org.csu.mypetstoressm.domain.Account;
 import org.csu.mypetstoressm.domain.Cart;
 import org.csu.mypetstoressm.domain.Order;
+import org.csu.mypetstoressm.service.CartService;
 import org.csu.mypetstoressm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -21,6 +22,8 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private CartService cartService;
     @Autowired
     private Order order;
 
@@ -87,9 +90,13 @@ public class OrderController {
 
         if (order != null) {
             orderService.insertOrder(order);
+            Account account = (Account) session.getAttribute("account");
             Cart cart = new Cart();
             model.addAttribute("cart",cart);
             session.setAttribute("cart", cart);
+            if (account != null) {
+                cartService.setCart(account, cart);
+            }
             model.addAttribute("message", "Thank you, your order has been submitted.");
             return VIEW_ORDER;
         }  else {
