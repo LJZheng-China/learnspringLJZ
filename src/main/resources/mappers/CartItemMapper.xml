@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.csu.mypetstoressm.persistence.CartItemMapper">
+    <resultMap id="cartItem" type="org.csu.mypetstoressm.domain.CartItem">
+        <result property="quantity" column="quantity"></result>
+        <result property="inStock" column="inStock"></result>
+        <association property="item" column="item" javaType="org.csu.mypetstoressm.domain.Item" select="org.csu.mypetstoressm.persistence.ItemMapper.getItem"></association>
+    </resultMap>
+
+    <select id="getCartItemListByAccount" parameterType="Account" resultMap="cartItem">
+        SELECT item, quantity, inStock FROM CART WHERE account = #{username}
+    </select>
+    
+    <delete id="deleteCartItemListByAccount" parameterType="Account">
+        DELETE FROM cart WHERE account = #{username}
+    </delete>
+    
+    <insert id="insertCartItemByAccount">
+        INSERT INTO cart(account, item, quantity, inStock) VALUES (#{account.username}, #{cartItem.item.itemId}, #{cartItem.quantity}, #{cartItem.inStock})
+    </insert>
+
+</mapper>
