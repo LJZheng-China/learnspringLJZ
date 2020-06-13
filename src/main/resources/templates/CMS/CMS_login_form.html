@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>CMS LOGIN</title>
+    <link rel="StyleSheet" href="../css/mypetstoressm.css" type="text/css" media="screen"/>
+    <link rel="StyleSheet" href="../../static/css/mypetstoressm.css" type="text/css" media="screen"/>
 </head>
 <body>
-$END$
+<header>
+    <div id="Header">
+
+        <div id="Logo">
+            <div id="LogoContent">
+                <img src="../images/logo-topbar.gif"/>
+            </div>
+        </div>
+
+        <div id="Menu">
+            <div id="MenuContent">
+            </div>
+        </div>
+
+        <div id="Search">
+            <div id="SearchContent">
+                <h1 style="font-family: 隶书; color: #eaac00">后台管理系统</h1>
+            </div>
+        </div>
+
+    </div>
+
+</header>
+
+<div id="Content">
+    <div id="Catalog">
+        <form action="/CMS/login" method="post">
+            <p>Please enter your username and password.</p>
+            <table>
+                <tr>
+                    <td>Username:</td>
+                    <td><input type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+<!--                <tr>-->
+<!--                    <td>Verification code:</td>-->
+<!--                    <td><input type="text" name="verification" autocomplete="off" /></td>-->
+<!--                </tr>-->
+                <tr>
+                    <td>
+<!--                        <img id="imgVerifyCode" src="/util/verifyCode" alt="Verification code" onclick="changeCode()">-->
+<!--                        <script type="text/javascript">-->
+<!--                            /**-->
+<!--                             * 刷新验证码-->
+<!--                             */-->
+<!--                            function changeCode(){-->
+<!--                                var time = new Date().getTime();-->
+<!--                                document.getElementById("imgVerifyCode").src="/util/verifyCode?t=" + time;-->
+<!--                            }-->
+<!--                        </script>-->
+                    </td>
+                    <td><input type="submit" value="Login"></td>
+                </tr>
+            </table>
+            <br>
+            <p th:if="${msg!=null}" th:text="${msg}"></p>
+        </form>
+    </div>
+</div>
+<footer>
+    <div id="Footer">
+
+        <div id="PoweredBy">&nbsp<a href="">www.csu.edu.cn</a>
+        </div>
+
+        <div id="Banner">
+            IncludeBottom.html
+        </div>
+
+    </div>
+</footer>
 </body>
 </html>
