@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理系统</title>
-    <link rel="StyleSheet" href="../css/mypetstoressm.css" type="text/css" media="screen"/>
+    <link rel="StyleSheet" href="../css/mypetstoressm.css" type="text/css" media="screen" />
     <link rel="StyleSheet" href="../../static/css/mypetstoressm.css" type="text/css" media="screen" />
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 
@@ -49,19 +49,21 @@
                 <el-row class="tac">
                     <el-col :span="6">
                         <el-menu default-active="2" class="el-menu-vertical-demo">
-                            <el-submenu index="1">
+                            <el-submenu index="1" >
                                 <template slot="title">
-                                    <!-- <i class="el-icon-location"></i> -->
-                                    <span>用户</span>
+                                    <i class="el-icon-location"></i>
+                                    <span slot="title">用户</span>
                                 </template>
+                                <el-menu-item index="1-1" v-on:click="account">信息</el-menu-item>
+                                <el-menu-item index="1-2">订单</el-menu-item>
                             </el-submenu>
                             <el-menu-item index="2" v-on:click="account">
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">用户</span>
                             </el-menu-item>
-                            <el-menu-item index="3" disabled>
+                            <el-menu-item index="3">
                                 <i class="el-icon-document"></i>
-                                <span slot="title">导航三</span>
+                                <span slot="title"></span>
                             </el-menu-item>
                             <el-menu-item index="4">
                                 <i class="el-icon-setting"></i>
@@ -69,7 +71,7 @@
                             </el-menu-item>
                         </el-menu>
                     </el-col>
-                    <el-col :span="18">
+                    <el-col :span="18" id="rshow">
                         <el-table :data="accountData" stripe style="width: 100%">
                             <el-table-column prop="username" label="用户名"></el-table-column>
                             <el-table-column prop="lastname" label="姓"></el-table-column>
@@ -82,10 +84,23 @@
                             <el-table-column prop="zip" label="zip"></el-table-column>
                             <el-table-column prop="phone" label="电话"></el-table-column>
                         </el-table>
+                        <el-table :data="orderData" stripe style="width: 100%">
+                            <el-table-column prop="username" label="用户名"></el-table-column>
+                            <el-table-column prop="lastname" label="姓"></el-table-column>
+                            <el-table-column prop="firstname" label="名"></el-table-column>
+                            <el-table-column prop="address1" label="住址1"></el-table-column>
+                            <el-table-column prop="address2" label="住址2"></el-table-column>
+                            <el-table-column prop="city" label="城市"></el-table-column>
+                            <el-table-column prop="state" label="州（省）"></el-table-column>
+                            <el-table-column prop="country" label="国家"></el-table-column>
+                            <el-table-column prop="zip" label="zip"></el-table-column>
+                            <el-table-column prop="phone" label="电话"></el-table-column>
+                        </el-table>
                     </el-col>
+                    
                 </el-row>
             </div>
-            
+
         </div>
     </div>
     <footer>
@@ -102,11 +117,21 @@
     </footer>
 </body>
 <script>
+    // var rshow = new Vue({
+    //     el: '#rshow',
+    //     data: function() {
+    //         return {
+    //             data: []
+    //         }
+    //     }
+
+    // })
     var vm = new Vue({
         el: '#app',
         data: function () {
             return {
-                accountData: []
+                accountData: [],
+                orderData: []
             }
 
         },
@@ -119,7 +144,7 @@
                     url: url,
                     type: 'post',
                     dataType: 'json',
-                    
+
                 }).then((res) => {
                     self.accountData = res;
                     alert(res);
@@ -127,6 +152,23 @@
                     alert("失败");
                 })
 
+            },
+
+            order: function (username = null) {
+                var self = this;
+                alert(order)
+                var url = "/CMSJson/accountlist" + (username == null) ? "" : "?username=" + username;
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    dataType: 'json',
+
+                }).then((res) => {
+                    self.accountData = res;
+                    alert(res);
+                }).fail(() => {
+                    alert("失败");
+                })
             }
         }
     })

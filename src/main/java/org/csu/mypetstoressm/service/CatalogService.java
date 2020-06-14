@@ -41,6 +41,7 @@ public class CatalogService {
         return productMapper.searchProductList("%" + keyword.toLowerCase() + "%");
     }
 
+    // @刘颖 如果item.status == N,表示商品下架，则需要在List<Item>中剔除，看看能否实现。
     public List<Item> getItemListByProduct(String productId) {
         return itemMapper.getItemListByProduct(productId);
     }

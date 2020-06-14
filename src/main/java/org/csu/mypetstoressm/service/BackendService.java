@@ -1,11 +1,7 @@
 package org.csu.mypetstoressm.service;
 
-import org.csu.mypetstoressm.domain.Account;
-import org.csu.mypetstoressm.domain.Administrator;
-import org.csu.mypetstoressm.domain.Category;
-import org.csu.mypetstoressm.persistence.AccountMapper;
-import org.csu.mypetstoressm.persistence.AdministratorMapper;
-import org.csu.mypetstoressm.persistence.CategoryMapper;
+import org.csu.mypetstoressm.domain.*;
+import org.csu.mypetstoressm.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +15,12 @@ public class BackendService {
     AccountMapper accountMapper;
     @Autowired
     CategoryMapper categoryMapper;
+    @Autowired
+    ProductMapper productMapper;
+    @Autowired
+    ItemMapper itemMapper;
+    @Autowired
+    OrderMapper orderMapper;
 
     public boolean login(Administrator administrator) {
         return administratorMapper.getAdministratorByUsernameAndPassword(administrator).length == 1;
@@ -32,5 +34,27 @@ public class BackendService {
         return categoryMapper.getCategoryList();
     }
 
+    public List<Product> getProductList() {
+        return productMapper.getProductList();
+    }
 
+    public List<Product> getProductListByCategoryId(String categoryId) {
+        return productMapper.getProductListByCategory(categoryId);
+    }
+
+    public List<Item> getItemList() {
+        return itemMapper.getItemList();
+    }
+
+    public List<Item> getItemListByProductId(String productId) {
+        return itemMapper.getItemListByProduct(productId);
+    }
+
+    public List<Order> getOrderListByUsername(String username) {
+        return orderMapper.getOrdersByUsername(username);
+    }
+
+    public List<Order> getOrderList() {
+        return orderMapper.getOrders();
+    }
 }

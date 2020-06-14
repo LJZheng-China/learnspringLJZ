@@ -13,4 +13,8 @@
     <select id="searchProductList" parameterType="string" resultType="Product">
         select productid, name, descn as description, category as categoryId from product where lower(name) like #{value}
   </select>
+
+    <select id="getProductList" resultType="Product">
+        select productid, name, descn as description, category as categoryId from product
+    </select>
 </mapper>
