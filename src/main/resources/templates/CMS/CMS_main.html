@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="StyleSheet" href="../css/mypetstoressm.css" type="text/css" media="screen" />
+    <link rel="StyleSheet" href="../../static/css/mypetstoressm.css" type="text/css" media="screen" />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+
+    <script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <header>
+        <div id="Header">
+
+            <div id="Logo">
+                <div id="LogoContent">
+                    <!-- <img src="../images/logo-topbar.gif" /> -->
+                    <img src="../../static/images/logo-topbar.gif" />
+                </div>
+            </div>
+
+            <div id="Menu">
+                <div id="MenuContent">
+                    <a href="/CMS/logout">Sign Out</a>
+                </div>
+            </div>
+
+            <div id="Search">
+                <div id="SearchContent">
+                    <h1 style="font-family: 隶书; color: #eaac00">后台管理系统</h1>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <div id="Content">
+        <div id="Catalog">
+            <div id="app">
+                <el-row class="tac">
+                    <el-col :span="6">
+                        <el-menu default-active="2" class="el-menu-vertical-demo">
+                            <el-submenu index="1" >
+                                <template slot="title">
+                                    <i class="el-icon-location"></i>
+                                    <span slot="title">用户</span>
+                                </template>
+                                <el-menu-item index="1-1" v-on:click="account">信息</el-menu-item>
+                                <el-menu-item index="1-2">订单</el-menu-item>
+                            </el-submenu>
+                            <el-menu-item index="2" v-on:click="account">
+                                <i class="el-icon-menu"></i>
+                                <span slot="title">用户</span>
+                            </el-menu-item>
+                            <el-menu-item index="3">
+                                <i class="el-icon-document"></i>
+                                <span slot="title"></span>
+                            </el-menu-item>
+                            <el-menu-item index="4">
+                                <i class="el-icon-setting"></i>
+                                <span slot="title">导航四</span>
+                            </el-menu-item>
+                        </el-menu>
+                    </el-col>
+                    <el-col :span="18" id="rshow">
+                        <el-table :data="accountData" stripe style="width: 100%">
+                            <el-table-column prop="username" label="用户名"></el-table-column>
+                            <el-table-column prop="lastname" label="姓"></el-table-column>
+                            <el-table-column prop="firstname" label="名"></el-table-column>
+                            <el-table-column prop="address1" label="住址1"></el-table-column>
+                            <el-table-column prop="address2" label="住址2"></el-table-column>
+                            <el-table-column prop="city" label="城市"></el-table-column>
+                            <el-table-column prop="state" label="州（省）"></el-table-column>
+                            <el-table-column prop="country" label="国家"></el-table-column>
+                            <el-table-column prop="zip" label="zip"></el-table-column>
+                            <el-table-column prop="phone" label="电话"></el-table-column>
+                        </el-table>
+                        <el-table :data="orderData" stripe style="width: 100%">
+                            <el-table-column prop="username" label="用户名"></el-table-column>
+                            <el-table-column prop="lastname" label="姓"></el-table-column>
+                            <el-table-column prop="firstname" label="名"></el-table-column>
+                            <el-table-column prop="address1" label="住址1"></el-table-column>
+                            <el-table-column prop="address2" label="住址2"></el-table-column>
+                            <el-table-column prop="city" label="城市"></el-table-column>
+                            <el-table-column prop="state" label="州（省）"></el-table-column>
+                            <el-table-column prop="country" label="国家"></el-table-column>
+                            <el-table-column prop="zip" label="zip"></el-table-column>
+                            <el-table-column prop="phone" label="电话"></el-table-column>
+                        </el-table>
+                    </el-col>
+                    
+                </el-row>
+            </div>
+
+        </div>
+    </div>
+    <footer>
+        <div id="Footer">
+
+            <div id="PoweredBy">&nbsp<a href="">www.csu.edu.cn</a>
+            </div>
+
+            <div id="Banner">
+                IncludeBottom.html
+            </div>
+
+        </div>
+    </footer>
+</body>
+<script>
+    // var rshow = new Vue({
+    //     el: '#rshow',
+    //     data: function() {
+    //         return {
+    //             data: []
+    //         }
+    //     }
+
+    // })
+    var vm = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                accountData: [],
+                orderData: []
+            }
+
+        },
+        methods: {
+            account: function () {
+                var self = this;
+                alert("account")
+                var url = "/CMSJson/accountlist";
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    dataType: 'json',
+
+                }).then((res) => {
+                    self.accountData = res;
+                    alert(res);
+                }).fail(() => {
+                    alert("失败");
+                })
+
+            },
+
+            order: function (username = null) {
+                var self = this;
+                alert(order)
+                var url = "/CMSJson/accountlist" + (username == null) ? "" : "?username=" + username;
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    dataType: 'json',
+
+                }).then((res) => {
+                    self.accountData = res;
+                    alert(res);
+                }).fail(() => {
+                    alert("失败");
+                })
+            }
+        }
+    })
+</script>
+
+
+</html>

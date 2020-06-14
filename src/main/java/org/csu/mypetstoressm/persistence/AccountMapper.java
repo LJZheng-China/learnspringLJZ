@@ -3,6 +3,8 @@ package org.csu.mypetstoressm.persistence;
 import org.csu.mypetstoressm.domain.Account;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AccountMapper {
     Account getAccountByUsername(String username);
@@ -20,4 +22,6 @@ public interface AccountMapper {
     void updateProfile(Account account);
 
     void updateSignon(Account account);
+
+    List<Account> getAccountList();
 }
