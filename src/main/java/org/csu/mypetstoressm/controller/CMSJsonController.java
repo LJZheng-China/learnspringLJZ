@@ -56,9 +56,18 @@ public class CMSJsonController {
 
     /**
      * 下架商品 将Item的status改为 N
+     * 上架status = P
+     * 下架status = N
      */
     public String putDownItem(String itemId) {
         //使用BackendService中的方法，没有就新建一个。
+        backendService.putDownItem(itemId);
+        return "ok";
+    }
+
+    public String putUpItem(String itemId) {
+        //使用BackendService中的方法，没有就新建一个。
+        backendService.putUpItem(itemId);
         return "ok";
     }
 
@@ -66,7 +75,8 @@ public class CMSJsonController {
      * 增加一个商品， 先不用实现
      * @return
      */
-    public String addAItem() {
+    public String addAItem(Item item) {
+
         return "ok";
     }
 }

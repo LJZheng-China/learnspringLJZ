@@ -80,4 +80,8 @@
     WHERE P.PRODUCTID = I.PRODUCTID
   </select>
 
+  <update id="putDownItem" parameterType="string">
+    update item set item.status='N' where item.itemid = #{value}
+  </update>
+
 </mapper>

@@ -9,6 +9,8 @@ import org.csu.mypetstoressm.persistence.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -41,9 +43,15 @@ public class CatalogService {
         return productMapper.searchProductList("%" + keyword.toLowerCase() + "%");
     }
 
-    // @刘颖 如果item.status == N,表示商品下架，则需要在List<Item>中剔除，看看能否实现。
     public List<Item> getItemListByProduct(String productId) {
-        return itemMapper.getItemListByProduct(productId);
+        List<Item> itemList = itemMapper.getItemListByProduct(productId);
+        List<Item> itemList1 = new ArrayList<>();
+        for (Item item : itemList) {
+            if (item.getStatus().equals("P")) {
+                itemList1.add(item);
+            }
+        }
+        return itemList1;
     }
 
     public Item getItem(String itemId) {
