@@ -63,6 +63,6 @@ public class BackendService {
     }
 
     public void putUpItem(String itemId) {
-        itemMapper.putDownItem(itemId);
+        itemMapper.putUpItem(itemId);
     }
 }

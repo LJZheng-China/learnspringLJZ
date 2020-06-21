@@ -84,4 +84,8 @@
     update item set item.status='N' where item.itemid = #{value}
   </update>
 
+  <update id="putUpItem" parameterType="string">
+    update item set item.status='P' where item.itemid = #{value}
+  </update>
+
 </mapper>
