@@ -57,4 +57,12 @@ public class BackendService {
     public List<Order> getOrderList() {
         return orderMapper.getOrders();
     }
+
+    public void putDownItem(String itemId) {
+        itemMapper.putDownItem(itemId);
+    }
+
+    public void putUpItem(String itemId) {
+        itemMapper.putUpItem(itemId);
+    }
 }

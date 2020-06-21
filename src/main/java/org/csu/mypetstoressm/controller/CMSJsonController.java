@@ -17,7 +17,7 @@ public class CMSJsonController {
     @Autowired
     BackendService backendService;
 
-    @RequestMapping("/accountlist")
+    @RequestMapping("/accountList")
     public List<Account> getAccountList() {
         return backendService.getAccountList();
     }
@@ -56,17 +56,27 @@ public class CMSJsonController {
 
     /**
      * 下架商品 将Item的status改为 N
+     * 上架status = P
+     * 下架status = N
      */
+    @PostMapping("/putDownItem")
     public String putDownItem(String itemId) {
-        //使用BackendService中的方法，没有就新建一个。
-        return "ok";
+        backendService.putDownItem(itemId);
+        return "{'msg': 'ok'}";
+    }
+
+    @PostMapping("/putUpItem")
+    public String putUpItem(String itemId) {
+        backendService.putUpItem(itemId);
+        return "{'msg': 'ok'}";
     }
 
     /**
      * 增加一个商品， 先不用实现
      * @return
      */
-    public String addAItem() {
+    public String addAItem(Item item) {
+
         return "ok";
     }
 }

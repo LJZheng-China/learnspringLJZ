@@ -49,17 +49,19 @@
                 <el-row class="tac">
                     <el-col :span="6">
                         <el-menu default-active="2" class="el-menu-vertical-demo">
-                            <el-submenu index="1" >
+                            <el-submenu index="1">
                                 <template slot="title">
                                     <i class="el-icon-location"></i>
                                     <span slot="title">用户</span>
                                 </template>
-                                <el-menu-item index="1-1" v-on:click="account">信息</el-menu-item>
-                                <el-menu-item index="1-2">订单</el-menu-item>
+                                <el-menu-item index="1-1" v-on:click="account">信息
+                                </el-menu-item>
+                                <el-menu-item index="1-2" v-on:click="order">订单
+                                </el-menu-item>
                             </el-submenu>
-                            <el-menu-item index="2" v-on:click="account">
+                            <el-menu-item index="2" v-on:click="item">
                                 <i class="el-icon-menu"></i>
-                                <span slot="title">用户</span>
+                                <span slot="title">商品</span>
                             </el-menu-item>
                             <el-menu-item index="3">
                                 <i class="el-icon-document"></i>
@@ -72,32 +74,88 @@
                         </el-menu>
                     </el-col>
                     <el-col :span="18" id="rshow">
-                        <el-table :data="accountData" stripe style="width: 100%">
-                            <el-table-column prop="username" label="用户名"></el-table-column>
-                            <el-table-column prop="lastname" label="姓"></el-table-column>
-                            <el-table-column prop="firstname" label="名"></el-table-column>
-                            <el-table-column prop="address1" label="住址1"></el-table-column>
-                            <el-table-column prop="address2" label="住址2"></el-table-column>
-                            <el-table-column prop="city" label="城市"></el-table-column>
-                            <el-table-column prop="state" label="州（省）"></el-table-column>
-                            <el-table-column prop="country" label="国家"></el-table-column>
-                            <el-table-column prop="zip" label="zip"></el-table-column>
-                            <el-table-column prop="phone" label="电话"></el-table-column>
-                        </el-table>
-                        <el-table :data="orderData" stripe style="width: 100%">
-                            <el-table-column prop="username" label="用户名"></el-table-column>
-                            <el-table-column prop="lastname" label="姓"></el-table-column>
-                            <el-table-column prop="firstname" label="名"></el-table-column>
-                            <el-table-column prop="address1" label="住址1"></el-table-column>
-                            <el-table-column prop="address2" label="住址2"></el-table-column>
-                            <el-table-column prop="city" label="城市"></el-table-column>
-                            <el-table-column prop="state" label="州（省）"></el-table-column>
-                            <el-table-column prop="country" label="国家"></el-table-column>
-                            <el-table-column prop="zip" label="zip"></el-table-column>
-                            <el-table-column prop="phone" label="电话"></el-table-column>
-                        </el-table>
+                        <el-tabs v-model="activeName" type="card">
+                            <el-tab-pane label="用户" name="account" v-on:click="account">
+                                <div id="account_table" style="display:block">
+                                    <el-table :data="accountData" stripe style="width: 100%">
+                                        <el-table-column prop="username" label="用户名"></el-table-column>
+                                        <el-table-column prop="lastname" label="姓"></el-table-column>
+                                        <el-table-column prop="firstname" label="名"></el-table-column>
+                                        <el-table-column prop="address1" label="住址1"></el-table-column>
+                                        <el-table-column prop="address2" label="住址2"></el-table-column>
+                                        <el-table-column prop="city" label="城市"></el-table-column>
+                                        <el-table-column prop="state" label="州（省）"></el-table-column>
+                                        <el-table-column prop="country" label="国家"></el-table-column>
+                                        <el-table-column prop="zip" label="zip"></el-table-column>
+                                        <el-table-column prop="phone" label="电话"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-tab-pane>
+                            <el-tab-pane label="订单" name="order" v-on:click="order">
+                                <div id="order_table" style="display: block">
+                                    <el-table :data="orderData" stripe style="width: 100%">
+                                        <el-table-column prop="orderId" label="Order"></el-table-column>
+                                        <el-table-column prop="username" label="Username"></el-table-column>
+                                        <el-table-column prop="orderDate" label="Order Date"></el-table-column>
+                                        <el-table-column prop="cardType" label="Card Type"></el-table-column>
+                                        <el-table-column prop="creditCard" label="Card Number"></el-table-column>
+                                        <el-table-column prop="expiryDate" label="Expiry Date (MM/YYYY)">
+                                        </el-table-column>
+                                        <el-table-column label="Billing Address">
+                                            <el-table-column prop="billToFirstName" label="First name">
+                                            </el-table-column>
+                                            <el-table-column prop="billToLastName" label="Last name"></el-table-column>
+                                            <el-table-column prop="billAddress1" label="Address 1"></el-table-column>
+                                            <el-table-column prop="billAddress2" label="Address 2"></el-table-column>
+                                            <el-table-column prop="billCity" label="City"></el-table-column>
+                                            <el-table-column prop="billState" label="State"></el-table-column>
+                                            <el-table-column prop="billZip" label="Zip"></el-table-column>
+                                            <el-table-column prop="billCountry" label="Country"></el-table-column>
+                                        </el-table-column>
+                                        <el-table-column label="Shipping Address">
+                                            <el-table-column prop="shipToFirstName" label="First name">
+                                            </el-table-column>
+                                            <el-table-column prop="shipToLastName" label="Last name"></el-table-column>
+                                            <el-table-column prop="shipAddress1" label="Address 1"></el-table-column>
+                                            <el-table-column prop="shipAddress2" label="Address 2"></el-table-column>
+                                            <el-table-column prop="shipCity" label="City"></el-table-column>
+                                            <el-table-column prop="shipState" label="State"></el-table-column>
+                                            <el-table-column prop="shipZip" label="Zip"></el-table-column>
+                                            <el-table-column prop="shipCountry" label="Country"></el-table-column>
+                                        </el-table-column>
+                                        <el-table-column prop="courier" label="Courier"></el-table-column>
+                                        <el-table-column prop="status" label="Status"></el-table-column>
+                                        <!-- <el-table-column prop="" label=""></el-table-column> -->
+                                    </el-table>
+                                </div>
+                            </el-tab-pane>
+                            <el-tab-pane label="商品" name="item" v-on:click="item">
+                                <div id="item_table" style="display: block">
+                                    <el-table :data="itemData" stripe style="width: 100%">
+                                        <el-table-column prop="itemId" label="商品编号"></el-table-column>
+                                        <el-table-column prop="product.name" label="商品类型"></el-table-column>
+                                        <el-table-column prop="listPrice" label="商品价格"></el-table-column>
+                                        <el-table-column prop="status" label="是否在售"></el-table-column>
+                                        <el-table-column prop="attr1" label="特性"></el-table-column>
+                                        <el-table-column prop="status" label="上/下架">
+                                            <template scope="scope">
+                                                <el-button v-if="scope.row.status == 'P'" v-on:click="putDownItem(scope.row.itemId)">下架 {{scope.row.itemId}}</el-button>
+                                                <el-button v-else v-on:click="putUpItem(scope.row.itemId)">上架 {{scope.row.itemId}}
+                                                </el-button>
+                                            </template>
+
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+
+
+
+
+
                     </el-col>
-                    
+
                 </el-row>
             </div>
 
@@ -117,29 +175,21 @@
     </footer>
 </body>
 <script>
-    // var rshow = new Vue({
-    //     el: '#rshow',
-    //     data: function() {
-    //         return {
-    //             data: []
-    //         }
-    //     }
-
-    // })
     var vm = new Vue({
         el: '#app',
         data: function () {
             return {
                 accountData: [],
-                orderData: []
+                orderData: [],
+                itemData: []
             }
 
         },
         methods: {
             account: function () {
                 var self = this;
-                alert("account")
-                var url = "/CMSJson/accountlist";
+                alert("account");
+                var url = "/CMSJson/accountList";
                 $.ajax({
                     url: url,
                     type: 'post',
@@ -150,25 +200,78 @@
                     alert(res);
                 }).fail(() => {
                     alert("失败");
-                })
-
+                });
             },
 
-            order: function (username = null) {
+            order: function () {
                 var self = this;
-                alert(order)
-                var url = "/CMSJson/accountlist" + (username == null) ? "" : "?username=" + username;
+                alert("order")
+                var url = "/CMSJson/orderList";
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    dataType: 'json',
+                }).then((res) => {
+                    self.orderData = res;
+                    alert(res);
+                }).fail(() => {
+                    alert("失败");
+                });
+            },
+
+            item: function () {
+                var self = this;
+                alert("item")
+                var url = "/CMSJson/itemList";
                 $.ajax({
                     url: url,
                     type: 'get',
                     dataType: 'json',
 
                 }).then((res) => {
-                    self.accountData = res;
+                    self.itemData = res;
                     alert(res);
                 }).fail(() => {
                     alert("失败");
-                })
+                });
+            },
+
+            putUpItem: function (itemId) {
+                alert("putUpItem" + itemId);
+                var url = "/CMSJson/putUpItem";
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        "itemId": itemId
+                    },
+                    dataType: 'json',
+
+                }).then((res) => {
+                    alert(res);
+                }).fail(() => {
+                    alert("失败");
+                });
+                this.item();
+            },
+
+            putDownItem: function (itemId) {
+                alert("putDownItem" + itemId);
+                var url = "/CMSJson/putDownItem";
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        "itemId": itemId
+                    },
+                    dataType: 'json',
+
+                }).then((res) => {
+                    alert(res);
+                }).fail(() => {
+                    alert("失败");
+                });
+                this.item();
             }
         }
     })

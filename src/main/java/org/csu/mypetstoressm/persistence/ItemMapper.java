@@ -17,4 +17,8 @@ public interface ItemMapper {
     Item getItem(String itemId);
 
     List<Item> getItemList();
+
+    void putDownItem(String itemId);
+
+    void putUpItem(String itemId);
 }
